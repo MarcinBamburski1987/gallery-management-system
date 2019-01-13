@@ -1,0 +1,252 @@
+body{
+    background-color: tomato !important;
+    font-size: 14px;
+    font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
+    margin: 0;
+    line-height: 1.42857143;
+}
+
+p{
+	color: black;
+}
+
+#usuwanie{
+    text-align: center;
+}
+
+#dodawanie{
+    text-align: center;
+}
+
+#dodajwyd{
+ margin: 5%;   
+}
+
+footer{
+    margin: 50px;
+    overflow: hidden;
+}
+
+#kosz{
+    margin: 5%;
+}
+
+.raporcikzyskow{
+    margin-left: 25%;
+    width: 50%;
+}
+
+hr{
+    width: 1349px;
+}
+
+#stopka{
+    width: 1349px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+
+li {
+    float: left;
+    border-right:1px solid #bbb;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    float: left;
+    border-right:1px solid #bbb;
+}
+
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+
+li .active {
+    background-color: cadetblue;
+}
+
+ul {
+    top: 0;
+    width: 100%;
+}
+
+.menu{
+   
+}
+
+.tabelka{
+     
+}
+
+
+
+			/*kalendarz fullcalendar*/
+
+	#wrap {
+		width: 1100px;
+		margin: 0 auto;
+		}
+		
+	#external-events {
+		float: left;
+		width: 150px;
+		padding: 0 10px;
+		text-align: left;
+		}
+		
+	#external-events h4 {
+		font-size: 16px;
+		margin-top: 0;
+		padding-top: 1em;
+		}
+		
+	.external-event { /* try to mimick the look of a real event */
+		margin: 10px 0;
+		padding: 2px 4px;
+		background: #3366CC;
+		color: #fff;
+		font-size: .85em;
+		cursor: pointer;
+		}
+		
+	#external-events p {
+		margin: 1.5em 0;
+		font-size: 11px;
+		color: #666;
+		}
+		
+	#external-events p input {
+		margin: 0;
+		vertical-align: middle;
+		}
+
+	#calendar {
+/* 		float: right; */
+                margin: 0 auto;
+		width: 900px;
+		background-color: #FFFFFF;
+		border-radius: 6px;
+                box-shadow: 0 1px 2px #C3C3C3;
+		}
+                
+
+			/*kalendarz fullcalendar* koniec*/
+                        
+                        .szukajpole{
+                            width: 100%;
+                            margin: 1%;
+                        }
+                        
+                        .szukajinput{
+                            float: right;
+                            width: 30%;
+                            text-align: right;
+                            
+                        }
+                        
+                        .szukajprzycisk{
+                            float: right;
+                            background-color: white;
+                            width: 10%;
+                            margin-left: 1%;
+                        }
+                        
+                        
+                        
+                        #demo{
+                           width: 100%;
+                           height: 100%;
+                        }
+                        
+                        .formularznajmu{
+                             text-align: center;
+                        }
+                        
+                        
+                        .calamapagalerii{
+                            background-color: black;
+                            width: 100%;
+                            height: 100%;
+                            text-align: center;
+                            color: white;
+                            padding: 5%;
+                            margin-top: 1%;
+                            margin-bottom: 1%;
+                            
+                        }
+     
+                      
+                        .sklep1, .sklep2, .sklep3, .sklep4, .sklep5, .sklep6, .sklep7, .sklep8, .sklep9, .sklep10, .sklep11, .sklep12, .sklep13, .sklep14, .sklep15, .sklep16, .sklep17, .sklep18, .sklep19, .sklep20, .sklep21, .sklep22, .sklep23, .sklep24, .sklep25, .sklep26, .sklep27, .sklep28, .sklep29, .sklep30, .sklep31, .sklep32, .sklep33, .sklep34, .sklep35, .sklep36, .sklep37, .sklep38, .sklep39, .sklep40{
+                          float: left;  
+                          width: 10%;
+                          height: 10%;
+                          
+                        }
+                            
+                        
+                        .alejka, .alejka2{
+                            float: left;
+                            width: 80%;
+                            background-color: grey;
+                        }
+                        
+                        .schody2{
+                            float: left;
+                            width: 10%;
+                            background-color: blue;
+                        }
+                        
+                        .wyjście1, .wyjście2{
+                            float: left;
+                            width: 10%;
+                            background-color: blue;
+                        }
+                        
+                        button{
+                        width: 100%;
+                        height: 100%;
+                        background: black;
+                            }
+
+                            button:hover {
+                            color: red;
+                            }
+                            
+                        
+                        
+                            h5{
+                                color: white;
+                            }
+                        
+                        .legendaguzik{
+                            width: 10%;
+                        }
+                        
+                        #stopka{
+                           
+                         
+                        }
+                        
+                      
+		table, th, td {
+    border: 1px solid black !important;
+}
+
+		
+		

@@ -1,0 +1,304 @@
+<?php
+
+	session_start();
+	
+	if (!isset($_SESSION['zalogowany']))
+	{
+		header('Location: index.php');
+		exit();
+	}
+	
+?>
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interface</title>
+    
+    <meta name="author" content="Marcin">
+    
+
+<link href="css/style.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href='css/fullcalendar.css' rel='stylesheet' />
+<link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+
+<script src='jquery/jquery-1.10.2.js'></script>
+<script src='jquery/jquery-ui.custom.min.js'></script>
+<script src="js/bootstrap.min.js"></script>
+<script src='js/fullcalendar.js'></script>
+<script src="js/scripts.js"></script>
+
+<script>
+
+	$(document).ready(function() {
+	    var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		/*  className colors
+		
+		className: default(transparent), important(red), chill(pink), success(green), info(blue)
+		
+		*/		
+		
+		  
+		/* initialize the external events
+		-----------------------------------------------------------------*/
+	
+		$('#external-events div.external-event').each(function() {
+		
+			// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+			// it doesn't need to have a start or end
+			var eventObject = {
+				title: $.trim($(this).text()) // use the element's text as the event title
+			};
+			
+			// store the Event Object in the DOM element so we can get to it later
+			$(this).data('eventObject', eventObject);
+			
+			// make the event draggable using jQuery UI
+			$(this).draggable({
+				zIndex: 999,
+				revert: true,      // will cause the event to go back to its
+				revertDuration: 0  //  original position after the drag
+			});
+			
+		});
+	
+	
+		/* initialize the calendar
+		-----------------------------------------------------------------*/
+		
+		var calendar =  $('#calendar').fullCalendar({
+			header: {
+				left: 'title',
+				center: 'agendaDay,agendaWeek,month',
+				right: 'prev,next today'
+			},
+			editable: true,
+			firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
+			selectable: true,
+			defaultView: 'month',
+			
+			axisFormat: 'h:mm',
+			columnFormat: {
+                month: 'ddd',    // Mon
+                week: 'ddd d', // Mon 7
+                day: 'dddd M/d',  // Monday 9/7
+                agendaDay: 'dddd d'
+            },
+            titleFormat: {
+                month: 'MMMM yyyy', // September 2009
+                week: "MMMM yyyy", // September 2009
+                day: 'MMMM yyyy'                  // Tuesday, Sep 8, 2009
+            },
+			allDaySlot: false,
+			selectHelper: true,
+			select: function(start, end, allDay) {
+				var title = prompt('Event Title:');
+				if (title) {
+					calendar.fullCalendar('renderEvent',
+						{
+							title: title,
+							start: start,
+							end: end,
+							allDay: allDay
+						},
+						true // make the event "stick"
+					);
+				}
+				calendar.fullCalendar('unselect');
+			},
+			droppable: true, // this allows things to be dropped onto the calendar !!!
+			drop: function(date, allDay) { // this function is called when something is dropped
+			
+				// retrieve the dropped element's stored Event Object
+				var originalEventObject = $(this).data('eventObject');
+				
+				// we need to copy it, so that multiple events don't have a reference to the same object
+				var copiedEventObject = $.extend({}, originalEventObject);
+				
+				// assign it the date that was reported
+				copiedEventObject.start = date;
+				copiedEventObject.allDay = allDay;
+				
+				// render the event on the calendar
+				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+				
+				// is the "remove after drop" checkbox checked?
+				if ($('#drop-remove').is(':checked')) {
+					// if so, remove the element from the "Draggable Events" list
+					$(this).remove();
+				}
+				
+			},
+			
+			events: [
+				{
+					id: 999,
+					title: 'Koncert U2',
+					start: new Date(y, m, 1, 17, 00),
+                                        end: new Date(y, m, 1, 21, 0),
+					url: 'http://www.u2.com/index/home',
+					className: 'important'
+				},
+				{
+					id: 999,
+					title: 'Pokaz tańca salsa',
+					start: new Date(y, m, 1, 21, 00),
+                                        end: new Date(y, m, 1, 21, 30),
+					allDay: false,
+                                        url: 'https://www.youtube.com/watch?v=O6kN-usZzew',
+					className: 'info'
+				},
+				{
+					id: 999,
+					title: 'Świętokrzyska Gala Discio Polo',
+					start: new Date(y, m, 3, 16, 00),
+                                        end: new Date(y, m, 3, 18, 0),
+					allDay: false,
+                                        url: 'http://www.koncertomania.pl/koncert/545761/bilety-bad-boys-blue-mig-cliver-freaky-boys-b-qll-jagoda-piekni-i-mlodzi-camasutra-andre-long-junior-dbomb-kielce-29-04-2016.html',
+					className: 'info'
+				},
+				{
+					title: 'Pokaz tańca Pol-dance',
+					start: new Date(y, m, 4, 14, 00),
+                                        end: new Date(y, m, 4, 14,15),
+					allDay: false,
+                                        url: 'http://poledanceproject.pl/',
+					className: 'important'
+				},
+				{
+					title: 'Turniej bilarda CUP 2016',
+					start: new Date(y, m, 5, 15, 00),
+					end: new Date(y, m, 5, 19, 0),
+					allDay: false,
+                                        url: 'https://www.google.pl/search?q=bilard&tbm=isch&imgil=Mz_SIJOnYPYTTM%253A%253B7TRuHkc6EWTUdM%253Bhttp%25253A%25252F%25252Fbilard.bialystok.pl%25252Fgra-dla-wybranych%25252F&source=iu&pf=m&fir=Mz_SIJOnYPYTTM%253A%252C7TRuHkc6EWTUdM%252C_&usg=__3BSxc91_U77A7xlNfas8ccEprA4%3D&biw=1366&bih=657&ved=0ahUKEwjT8tfzvqfMAhXCE5oKHQDeB10QyjcIXg&ei=BdkcV5PcBcKn6ASAvJ_oBQ#imgrc=Mz_SIJOnYPYTTM%3A',
+					className: 'important'
+				},
+				{
+					title: 'Spotkanie z aktorem Melem Gibsonem',
+					start: new Date(y, m, 6, 15, 0),
+					end: new Date(y, m, 6, 16, 00),
+					allDay: false,
+                                        url: 'https://pl.wikipedia.org/wiki/Mel_Gibson',
+                                        className: 'important'
+				},
+				{
+					title: 'Spotkanie z miss polonia',
+					start: new Date(y, m, 7, 16, 0),
+					end: new Date(y, m, 7, 22, 00),
+					url: 'http://www.misspolonia.com.pl/',
+					className: 'success'
+				}
+			],			
+		});
+		
+		
+	});
+
+</script>
+<!--
+<style>
+/* przeniosłem do style.css
+	body {
+		margin-top: 40px;
+		text-align: center;
+		font-size: 14px;
+		font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
+		background-color: tomato;
+		}
+
+	#wrap {
+		width: 1100px;
+		margin: 0 auto;
+		}
+		
+	#external-events {
+		float: left;
+		width: 150px;
+		padding: 0 10px;
+		text-align: left;
+		}
+		
+	#external-events h4 {
+		font-size: 16px;
+		margin-top: 0;
+		padding-top: 1em;
+		}
+		
+	.external-event { 
+		margin: 10px 0;
+		padding: 2px 4px;
+		background: #3366CC;
+		color: #fff;
+		font-size: .85em;
+		cursor: pointer;
+		}
+		
+	#external-events p {
+		margin: 1.5em 0;
+		font-size: 11px;
+		color: #666;
+		}
+		
+	#external-events p input {
+		margin: 0;
+		vertical-align: middle;
+		}
+
+	#calendar {
+
+        margin: 0 auto;
+		width: 900px;
+		background-color: #FFFFFF;
+		  border-radius: 6px;
+        box-shadow: 0 1px 2px #C3C3C3;
+		}
+
+</style>
+-->
+</head>
+<body>
+     <!-- menu navbar-->
+        <div id="menu">
+             <ul>
+              <li id="gl"><a href="glowna.php">Strona glówna</a></li>
+              <li id="kal"><a class="active" href="fullcalendar.html">kalendarz</a></li>
+              <li id="dod"><a href="dodaj.html">dodaj wydarzenie</a></li>
+              <li id="usu"><a href="usun.html">usuń wydarzenie</a></li>
+              <li id="zob"><a href="zobacz.html">zobacz wydarzenia</a></li>
+              <li id="map"><a href="mapa.html">mapka galerii</a></li>
+              <li id="wyn"><a href="wynajmij.html">wynajmij lokal</a></li>
+              <li id="rap"><a href="raport.html">zysk z lokali</a></li>
+              <li id="rap2"><a  href="raport2.html">raport</a></li>
+              <li id="wyl" style="float:right"><a href="index.html">Wyloguj</a></li>
+            </ul>
+        </div>
+        <!-- koniec diva menu navbar-->
+        
+<div id='wrap'>
+
+<div id='calendar'></div>
+
+<div style='clear:both'></div>
+</div>
+        
+	<footer>
+            <div class="row" >
+                
+					
+					<hr>
+                                        <center><p>Copyright &copy; Marcin Bamburski</p></center>
+            </div>	
+		</footer>	
+
+        
+</body>
+</html>
